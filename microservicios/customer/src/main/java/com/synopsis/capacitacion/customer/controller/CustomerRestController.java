@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.Duration;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -128,4 +127,13 @@ public class CustomerRestController {
         String name = block.get("name").asText();
         return name;
     }
+
+    @PutMapping("/update2/{id}")
+    public ResponseEntity<?>  updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
+
+        customerRepository.updateCustomer(id, customer.getCode(), customer.getName(), customer.getPhone(),
+                customer.getIban(), customer.getSurname(), customer.getAddress());
+        return ResponseEntity.ok().build();
+    }
+
 }
