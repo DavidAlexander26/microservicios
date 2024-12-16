@@ -20,4 +20,14 @@ public class ProductController {
         return iProductService.getById(id);
     }
 
+    @GetMapping("/code1/{code}")
+    public ProductEntity getCode1(@PathVariable(name = "code") String code) {
+        return iProductService.getByCode1(code);
+    }
+
+    @GetMapping("/code2/{code}")
+    public ProductEntity getCode2(@PathVariable(name = "code") String code) {
+        return iProductService.getByCode2(code);
+    }
+
 }
