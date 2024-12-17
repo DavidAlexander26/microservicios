@@ -11,9 +11,9 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
-    @Query("SELECT p FROM ProductEntity p WHERE p.code = :code")
-    Optional<ProductEntity> findProductByCode(@Param("code") String code);
+    @Query("SELECT p FROM ProductEntity p WHERE p.name = :name")
+    Optional<ProductEntity> findProductByName(@Param("name") String name);
 
-    Optional<ProductEntity> findByCode(String code);
+    Optional<ProductEntity> findProductByCode(String code);
 
 }

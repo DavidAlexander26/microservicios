@@ -3,10 +3,7 @@ package com.synopsis.capacitacion.product.controller;
 import com.synopsis.capacitacion.product.entity.ProductEntity;
 import com.synopsis.capacitacion.product.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
@@ -15,19 +12,41 @@ public class ProductController {
     @Autowired
     private IProductService iProductService;
 
+    @GetMapping()
+    public Object getAll() {
+        return iProductService.findAll();
+    }
+
     @GetMapping("/{id}")
-    public ProductEntity get(@PathVariable(name = "id") long id) {
-        return iProductService.getById(id);
+    public Object getById(@PathVariable(name = "id") Long id) {
+        return iProductService.findById(id);
     }
 
-    @GetMapping("/code1/{code}")
-    public ProductEntity getCode1(@PathVariable(name = "code") String code) {
-        return iProductService.getByCode1(code);
+    @GetMapping("/code/{code}")
+    public Object getByCode(@PathVariable(name = "code") String code) {
+        return iProductService.findByCode(code);
+    }
+    @GetMapping("/name/{name}")
+    public Object getByName(@PathVariable(name = "name") String name) {
+        return iProductService.findByName(name);
     }
 
-    @GetMapping("/code2/{code}")
-    public ProductEntity getCode2(@PathVariable(name = "code") String code) {
-        return iProductService.getByCode2(code);
+    @PostMapping()
+    public Object post(@RequestBody ProductEntity product) {
+        return iProductService.createProduct(product);
     }
 
+    @PutMapping("/{id}")
+    public Object put(@PathVariable(name = "id") Long id, @RequestBody ProductEntity product) {
+        return iProductService.updateProduct(id, product);
+    }
+
+    @DeleteMapping("")
+    public Object deleteAll() {
+        return iProductService.deleteAll();
+    }
+    @DeleteMapping("/{id}")
+    public Object deleteById(@PathVariable Long id) {
+      return iProductService.deleteById(id);
+    }
 }

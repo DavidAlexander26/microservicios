@@ -30,5 +30,76 @@ public class Customer {
 
    @Transient
    private List<?> transactions;
-   
+
+ public long getId() {
+  return id;
+ }
+
+ public void setId(long id) {
+  this.id = id;
+ }
+
+ public String getCode() {
+  return code;
+ }
+
+ public void setCode(String code) {
+  this.code = code;
+ }
+
+ public String getName() {
+  return name;
+ }
+
+ public void setName(String name) {
+  this.name = name;
+ }
+
+ public String getPhone() {
+  return phone;
+ }
+
+ public void setPhone(String phone) {
+  this.phone = phone;
+ }
+
+ public String getIban() {
+  return iban;
+ }
+
+ public void setIban(String iban) {
+  this.iban = iban;
+ }
+
+ public String getSurname() {
+  return surname;
+ }
+
+ public void setSurname(String surname) {
+  this.surname = surname;
+ }
+
+ public String getAddress() {
+  return address;
+ }
+
+ public void setAddress(String address) {
+  this.address = address;
+ }
+
+ public List<CustomerProduct> getProducts() {
+  return products;
+ }
+
+ public void setProducts(List<CustomerProduct> products) {
+  this.products = products;
+ }
+
+ public List<?> getTransactions() {
+  return transactions;
+ }
+
+ public void setTransactions(List<?> transactions) {
+  this.transactions = transactions;
+ }
 }
