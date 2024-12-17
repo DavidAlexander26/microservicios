@@ -18,7 +18,6 @@ import reactor.netty.http.client.HttpClient;
 
 import java.time.Duration;
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -26,12 +25,8 @@ public class WebClientCustomer implements IWebClientCustomer {
 
     @Autowired
     private Environment env;
-    private final WebClient.Builder webClientBuilder;
-
-    public WebClientCustomer(WebClient.Builder webClientBuilder) {
-
-        this.webClientBuilder = webClientBuilder;
-    }
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
     HttpClient client = HttpClient.create()
             .option(ChannelOption.CONNECT_TIMEOUT_MILLIS,5000)
