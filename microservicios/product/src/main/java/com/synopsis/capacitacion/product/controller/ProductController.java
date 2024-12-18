@@ -31,12 +31,12 @@ public class ProductController {
         return iProductService.findByName(name);
     }
 
-    @PostMapping()
+    @PostMapping("/create")
     public Object post(@RequestBody ProductEntity product) {
         return iProductService.createProduct(product);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Object put(@PathVariable(name = "id") Long id, @RequestBody ProductEntity product) {
         return iProductService.updateProduct(id, product);
     }
