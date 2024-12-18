@@ -22,9 +22,17 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: ms-product_update
+          uri: lb://ms-product #http://localhost:8085 lb://ms-product
+          predicates:
+            - Path=/ms-product/v1/product/update/**
+            - Method=PUT
+          filters:
+            - name: AuthenticationFiltering
+
         - id: ms-product
           uri: lb://ms-product #http://localhost:8085 lb://ms-product
           predicates:
             - Path=/ms-product/v1/product/**
-          filters:
-            - name: AuthenticationFiltering
+          #filters:
+          #  - name: AuthenticationFiltering
