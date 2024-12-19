@@ -1,5 +1,19 @@
+version: '3.8'
 
 services:
+  # Docker Compose creates a virtual network between the services and the DNS name 
+  # used for each service is its name: that’s why it’s possible to use registry-discovery as the hostname.
+  registry-discovery:
+    container_name: id-eureka
+    image: ms-eureka-server_image:latest
+    ports:
+      - "8761:8761"
+    environment:
+      JAVA_OPTS: "-Xms256M -Xmx256M"
+    networks:
+      - my_network
+
+  # PostgreSQL database
   postgres:
     image: postgres:latest
     environment:
@@ -10,28 +24,56 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my_network
 
- ##########################################################################     
- #keycloack Server
- ##########################################################################  
+  # Keycloak Server
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: keycloak_server
     environment:
-      #KC_DB: postgres
-      #KC_DB_URL: jdbc:postgresql://localhost:5433/fwksynopsis
-      #KC_DB_USERNAME: postgres
-      #KC_DB_PASSWORD: root
       KC_HOSTNAME: localhost
-      #KC_ADMIN_PASSWORD: admin_password
-      #KEYCLOAK_USER: admin
-      #KEYCLOAK_PASSWORD: admin
       DB_VENDOR: H2
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
     command: ["start-dev"]
     ports:
       - "8091:8080"
+    networks:
+      - my_network
+
+  # Configuration service
+  configuration:
+    container_name: configuration
+    image: ms-config-server_image:latest
+    volumes:
+      # Use a local GitHub repository
+      - ./config-server-repo:/tmp/config-server-repo
+    environment:
+      JAVA_OPTS: "-Xms256M -Xmx256M -DLOCAL_REPOSITORY=/tmp/config-server-repo -DEUREKA_SERVER=http://registry-discovery:8761/eureka/"
+    ports:
+      - "8888:8888"
+    depends_on:
+      - registry-discovery
+    networks:
+      - my_network
+
+  ms-product:
+    container_name: id-ms-product
+    image: ms-product_image:latest
+    environment:
+      JAVA_OPTS: "-Xms256M -Xmx256M  -DCONFIG_SERVER=configserver:http://configuration:8888"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - registry-discovery
+      - configuration
+    networks:
+      - my_network
 
 volumes:
   postgres_data:
+
+networks:
+  my_network:
+    driver: bridge
