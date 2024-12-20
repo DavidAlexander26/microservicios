@@ -10,7 +10,7 @@ logging:
   eureka:
     client:
       serviceUrl:
-        defaultzone: http://localhost:8761/eureka
+        defaultzone: ${EUREKA_SERVER:http://registry-discovery:8761/eureka/}
       register-with-eureka: true
       healthcheck:
         enabled:  true

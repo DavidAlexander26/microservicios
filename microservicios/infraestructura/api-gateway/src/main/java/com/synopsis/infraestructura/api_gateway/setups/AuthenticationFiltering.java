@@ -44,7 +44,7 @@ public class AuthenticationFiltering extends AbstractGatewayFilterFactory<Authen
             logger.info("uhh token con fomarmato OK");
             return  webclientBuilder.build()
                     .get()
-                    .uri("http://KEYCLOACK/roles").header(HttpHeaders.AUTHORIZATION, parts[1])
+                    .uri("http://KEYCLOACK-ADAPTER/roles").header(HttpHeaders.AUTHORIZATION, parts[1])
                     .retrieve()
                     .bodyToMono(JsonNode.class)
                     .map(response -> {

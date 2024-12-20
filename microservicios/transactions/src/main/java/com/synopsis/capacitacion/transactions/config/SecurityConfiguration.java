@@ -1,6 +1,6 @@
 package com.synopsis.capacitacion.transactions.config;
 
-
+/*
 import java.time.Duration;
 import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
@@ -19,11 +19,14 @@ import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+*/
+//@Configuration
+//@EnableWebSecurity
 
-@Configuration
-@EnableWebSecurity
+
 public class SecurityConfiguration {
 
+    /*
     private static final String[] NO_AUTH_LIST = {
             "/v3/api-docs",//
             "/configuration/ui", //
@@ -33,11 +36,12 @@ public class SecurityConfiguration {
             "/login",
             "/h2-console/**"};
 
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    */
+    //@Bean
+    //public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //Choose one configuration
 
+    /*
         //01- Full security in order to ask by user and password before to acces swagger ui
         http.csrf().disable()
                         .authorizeHttpRequests()
@@ -47,7 +51,7 @@ public class SecurityConfiguration {
 
         return http.build();
 
-
+    */
 
         //02- Custom security configuration, we can excluse some paths and ask by user and password before each request to acces swagger ui
 //        http
@@ -71,11 +75,15 @@ public class SecurityConfiguration {
 //                //use default UI.
 //                .formLogin(withDefaults());
 //        return http.build();
-    }
+
+
+    //}
+
 
 
     //This Handlers implement the CorsConfigurationSource interface in order to provide a CorsConfiguration for each request.
-    @Bean
+
+ /*   @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cc = new CorsConfiguration();
 
@@ -96,6 +104,6 @@ public class SecurityConfiguration {
         return source;
     }
 
-
+*/
 
 }
